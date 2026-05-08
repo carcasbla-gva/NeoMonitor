@@ -1,4 +1,4 @@
-# 🖥️ NetMonitor - Gestor de Infraestructura y Alertas
+# NetMonitor - Gestor de Infraestructura y Alertas
 
 **Proyecto Final: Programación DAW** **Desarrollo de Aplicaciones Web - JavaFX + Spring JPA**
 

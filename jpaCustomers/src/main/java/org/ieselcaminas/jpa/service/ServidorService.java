@@ -65,6 +65,7 @@ import java.util.stream.Collectors;
 
 
     public List<Servidor> filtrarPorEstado(String estadoDeseado) {
+
         List<Servidor> todosLosServidores = servidorRepository.findAll();
 
         return todosLosServidores.stream()

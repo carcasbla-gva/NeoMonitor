@@ -1,6 +1,6 @@
-package org.ieselcaminas.jpa.repository;
+package org.neomonitor.jpa.repository;
 
-import org.ieselcaminas.jpa.entity.Administrador;
+import org.neomonitor.jpa.entity.Administrador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

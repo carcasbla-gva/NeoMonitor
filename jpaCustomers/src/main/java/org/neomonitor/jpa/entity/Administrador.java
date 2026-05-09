@@ -1,4 +1,4 @@
-package org.ieselcaminas.jpa.entity;
+package org.neomonitor.jpa.entity;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

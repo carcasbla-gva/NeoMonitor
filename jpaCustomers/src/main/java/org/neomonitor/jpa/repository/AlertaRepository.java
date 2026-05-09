@@ -1,6 +1,6 @@
-package org.ieselcaminas.jpa.repository;
+package org.neomonitor.jpa.repository;
 
-import org.ieselcaminas.jpa.entity.Alerta;
+import org.neomonitor.jpa.entity.Alerta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

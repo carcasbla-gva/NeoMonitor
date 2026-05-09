@@ -1,4 +1,4 @@
-package org.ieselcaminas.jpa;
+package org.neomonitor.jpa;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,9 +1,9 @@
-package org.ieselcaminas.jpa.service;
+package org.neomonitor.jpa.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ieselcaminas.jpa.entity.Servidor;
-import org.ieselcaminas.jpa.repository.ServidorRepository;
+import org.neomonitor.jpa.entity.Servidor;
+import org.neomonitor.jpa.repository.ServidorRepository;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;

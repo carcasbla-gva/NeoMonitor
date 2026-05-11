@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "alerta")
+@Table(name = "alertas")
 public class Alerta implements Comparable<Alerta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.neomonitor.jpa.controller.MainController">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="NeoMonitor - Panel de Control" />
+
+    <HBox spacing="10.0">
+        <TextField fx:id="filterField" promptText="Filtrar por estado (Online/Caído)..." HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleFilter" text="Filtrar" />
+    </HBox>
+
+    <TableView fx:id="servidorTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colIp" prefWidth="150.0" text="Dirección IP" />
+            <TableColumn fx:id="colSo" prefWidth="150.0" text="S. Operativo" />
+            <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
+            <TableColumn fx:id="colUbicacion" prefWidth="250.0" text="Ubicación (API)" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button onAction="#openAddForm" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Añadir Servidor" />
+        <Button onAction="#viewAlerts" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Ver Alertas" />
+        <Button onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Eliminar" />
+    </HBox>
+</VBox>

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "alerta")
-public class Alerta {
+public class Alerta implements Comparable<Alerta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -63,5 +63,11 @@ public class Alerta {
 
     public void setServidor(Servidor servidor) {
         this.servidor = servidor;
+    }
+
+    @Override
+    public int compareTo(Alerta otraAlerta){
+        return otraAlerta.getFechaHora()
+                .compareTo(this.fechaHora);
     }
 }

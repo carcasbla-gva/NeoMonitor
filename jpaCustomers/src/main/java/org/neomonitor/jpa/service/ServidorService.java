@@ -72,4 +72,24 @@ import java.util.stream.Collectors;
                 .filter(servidor -> servidor.getEstado().equalsIgnoreCase(estadoDeseado))
                 .collect(Collectors.toList());
     }
+
+    // exportar ficheros a CSV
+
+    public void exportarServidoresCSV(String rutaArchivo) throws java.io.IOException {
+        List<Servidor> servidores = servidorRepository.findAll();
+
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(rutaArchivo))) {
+            writer.println("ID,Direccion_IP,Sistema_Operativo,Estado,ID_Administrador");
+
+            for (Servidor s : servidores) {
+                Long adminId = (s.getAdministrador() != null) ? s.getAdministrador().getId() : 0;
+                writer.printf("%d,%s,%s,%s,%d%n",
+                        s.getId(),
+                        s.getDireccionIp(),
+                        s.getSistemaOperativo(),
+                        s.getEstado(),
+                        adminId);
+            }
+        }
+    }
 }

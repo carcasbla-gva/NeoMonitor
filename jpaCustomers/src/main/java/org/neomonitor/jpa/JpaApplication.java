@@ -39,12 +39,10 @@ public class JpaApplication extends Application {
 
 	@Override
 	public void stop() {
-		// Apagamos Spring cuando el usuario cierra la ventana
 		springContext.close();
 	}
 
 	public static void main(String[] args) {
-		// Lanzamos la aplicación JavaFX
 		launch(JpaApplication.class, args);
 	}
 }

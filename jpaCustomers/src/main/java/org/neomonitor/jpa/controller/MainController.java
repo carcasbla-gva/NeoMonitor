@@ -3,23 +3,24 @@ package org.neomonitor.jpa.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.neomonitor.jpa.entity.Servidor;
 import org.neomonitor.jpa.service.ServidorService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
 public class MainController {
 
-    @FXML
-    private TableView<Servidor> servidorTable;
+    @FXML private TableView<Servidor> servidorTable;
     @FXML private TableColumn<Servidor, String> colIp;
     @FXML private TableColumn<Servidor, String> colSo;
     @FXML private TableColumn<Servidor, String> colEstado;
@@ -27,10 +28,12 @@ public class MainController {
     @FXML private TextField filterField;
 
     private final ServidorService servidorService;
+    private final ApplicationContext applicationContext;
     private ObservableList<Servidor> servidorData = FXCollections.observableArrayList();
 
-    public MainController(ServidorService servidorService) {
+    public MainController(ServidorService servidorService, ApplicationContext applicationContext) {
         this.servidorService = servidorService;
+        this.applicationContext = applicationContext;
     }
 
     @FXML
@@ -77,17 +80,45 @@ public class MainController {
         if (seleccionado != null) {
             servidorService.eliminarServidor(seleccionado.getId());
             loadData();
-            mostrarMensaje("Éxito", "Servidor eliminado correctamente.");
+            mostrarMensaje("Éxito", "Servidor eliminado correctamente.", Alert.AlertType.INFORMATION);
         } else {
-            mostrarMensaje("Error", "Por favor, selecciona un servidor de la lista.");
+            mostrarMensaje("Error", "Por favor, selecciona un servidor de la lista.", Alert.AlertType.ERROR);
         }
     }
 
-    @FXML private void openAddForm() { System.out.println("Abriendo formulario..."); }
-    @FXML private void viewAlerts() { System.out.println("Abriendo alertas..."); }
+    @FXML
+    private void openAddForm() {
+        abrirNuevaVentana("/view/server-form-view.fxml", "Añadir Servidor");
+    }
 
-    private void mostrarMensaje(String titulo, String contenido) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    @FXML
+    private void viewAlerts() {
+        abrirNuevaVentana("/view/alertas-view.fxml", "Historial de Alertas");
+    }
+
+    private void abrirNuevaVentana(String fxmlPath, String titulo) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+            // Crucial: Le decimos a JavaFX que Spring instancie el controlador
+            fxmlLoader.setControllerFactory(applicationContext::getBean);
+            Parent root = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle(titulo);
+            stage.setScene(new Scene(root));
+            stage.showAndWait(); // Pausa la ejecución hasta que se cierre la ventana nueva
+
+            // Recargamos los datos de la tabla por si hemos añadido un servidor nuevo
+            loadData();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarMensaje("Error", "No se pudo abrir la ventana.", Alert.AlertType.ERROR);
+        }
+    }
+
+    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(contenido);

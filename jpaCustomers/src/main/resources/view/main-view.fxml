@@ -33,8 +33,10 @@
     </TableView>
 
     <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button onAction="#handleExportCSV" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Exportar CSV" />
         <Button onAction="#openAddForm" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Añadir Servidor" />
         <Button onAction="#viewAlerts" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Ver Alertas" />
         <Button onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Eliminar" />
     </HBox>
+
 </VBox>

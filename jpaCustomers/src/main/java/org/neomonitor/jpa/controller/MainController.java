@@ -1,5 +1,8 @@
 package org.neomonitor.jpa.controller;
 
+
+import javafx.stage.FileChooser;
+import java.io.File;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,19 +99,36 @@ public class MainController {
         abrirNuevaVentana("/view/alertas-view.fxml", "Historial de Alertas");
     }
 
+    @FXML
+    private void handleExportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Inventario CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos CSV", "*.csv"));
+
+        Stage stage = (Stage) servidorTable.getScene().getWindow();
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try {
+                servidorService.exportarServidoresCSV(file.getAbsolutePath());
+                mostrarMensaje("Éxito", "Inventario exportado correctamente a:\n" + file.getAbsolutePath(), Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarMensaje("Error", "Hubo un problema al exportar el archivo.", Alert.AlertType.ERROR);
+            }
+        }
+    }
+
     private void abrirNuevaVentana(String fxmlPath, String titulo) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            // Crucial: Le decimos a JavaFX que Spring instancie el controlador
             fxmlLoader.setControllerFactory(applicationContext::getBean);
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
             stage.setTitle(titulo);
             stage.setScene(new Scene(root));
-            stage.showAndWait(); // Pausa la ejecución hasta que se cierre la ventana nueva
-
-            // Recargamos los datos de la tabla por si hemos añadido un servidor nuevo
+            stage.showAndWait();
             loadData();
 
         } catch (IOException e) {

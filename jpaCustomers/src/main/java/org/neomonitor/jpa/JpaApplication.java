@@ -1,5 +1,6 @@
 package org.neomonitor.jpa;
 
+import javafx.scene.image.Image;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,16 +27,34 @@ public class JpaApplication extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/main-view.fxml"));
 		fxmlLoader.setControllerFactory(springContext::getBean);
-
 		Parent root = fxmlLoader.load();
+
 		primaryStage.setTitle("NeoMonitor - Dashboard");
-		primaryStage.setScene(new Scene(root, 800, 600)); // Tamaño de la ventana
+		primaryStage.setScene(new Scene(root, 800, 600));
+
+		//
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/Logo.png")));
+
 		primaryStage.show();
 	}
 
 	@Override
 	public void stop() {
 		springContext.close();
+	}
+
+	@org.springframework.context.annotation.Bean
+	public org.springframework.boot.CommandLineRunner initData(org.neomonitor.jpa.repository.AdministradorRepository repo) {
+		return args -> {
+			if (repo.count() == 0) {
+				org.neomonitor.jpa.entity.Administrador admin = new org.neomonitor.jpa.entity.Administrador();
+				admin.setNombre("Carlos");
+				admin.setEmail("admin@neomonitor.local");
+				admin.setRol("SysAdmin");
+				repo.save(admin);
+				System.out.println("Administrador por defecto creado con ID 1.");
+			}
+		};
 	}
 
 	public static void main(String[] args) {

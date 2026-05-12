@@ -25,7 +25,7 @@ Este proyecto cumple con los requisitos del módulo de Programación de 1º DAW:
 3. **Persistencia Automática:** Se ha configurado el sistema para que la base de datos SQLite se inicialice automáticamente con datos de prueba si se encuentra vacía, facilitando la demostración.
 4. **Validación de Datos:** El formulario de servidores incluye validación para asegurar que el Administrador responsable existe antes de permitir el guardado (integridad referencial).
 
-##Instalación y Ejecución
+## Instalación y Ejecución
 
 Para ejecutar la aplicación correctamente en entornos modernos de Java:
 

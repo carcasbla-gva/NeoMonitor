@@ -4,7 +4,7 @@ NeoMonitor es una aplicación de escritorio profesional diseñada para la monito
 
 ## Diagrama Entidad-Relación
 
-![Base De Datos](https://github.com/user-attachments/assets/21354215-7b70-477f-bbd8-1d7711e1d652)
+![Diagrama Entidad-Relación](./jpaCustomers/src/main/resources/img/Diagrama.png)
 
 
 *Modelo de datos diseñado para la persistencia con JPA, mostrando las relaciones entre Administradores, Servidores y Alertas.*
